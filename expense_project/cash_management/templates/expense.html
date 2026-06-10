@@ -1,0 +1,60 @@
+{% extends "master/base.html" %}
+
+{% block content %}
+
+<h2 class="mb-3">
+    Expense Management
+</h2>
+
+<a href="{% url 'addexpense_page' %}"
+   class="btn btn-danger mb-3">
+   Add Expense
+</a>
+
+<table class="table table-bordered">
+
+    <tr>
+
+        <th>#</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Time</th>
+        <th>Action</th>
+
+    </tr>
+
+    {% for expense in expense_data %}
+
+    <tr>
+
+        <td>{{ forloop.counter }}</td>
+
+        <td>{{ expense.amount }}</td>
+
+        <td>{{ expense.description }}</td>
+
+        <td>
+            {{ expense.datetime|date:"d M Y h:i A" }}
+        </td>
+
+        <td>
+
+            <a href="{% url 'update_expense_page' expense.id %}"
+               class="btn btn-warning btn-sm">
+               Edit
+            </a>
+
+            <a href="{% url 'delete_expense_page' expense.id %}"
+               class="btn btn-danger btn-sm">
+               Delete
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock content %}

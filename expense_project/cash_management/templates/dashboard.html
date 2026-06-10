@@ -1,0 +1,137 @@
+{% extends "master/base.html" %}
+
+{% block content %}
+<h2>
+    Welcome {{ request.user.username }}
+</h2>
+
+<hr>
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="card p-3 bg-success text-white">
+            <h4>Total Cash</h4>
+            <h2>{{ total_cash }}</h2>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card p-3 bg-danger text-white">
+            <h4>Total Expense</h4>
+            <h2>{{ total_expense }}</h2>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card p-3 bg-primary text-white">
+            <h4>Current Balance</h4>
+            <h2>{{ balance }}</h2>
+        </div>
+
+    </div>
+
+</div>
+
+<hr>
+
+<a href="{% url 'addcash_page' %}" class="btn btn-success">
+    Add Cash
+</a>
+
+<a href="{% url 'addexpense_page' %}" class="btn btn-danger">
+    Add Expense
+</a>
+
+<hr>
+
+<div class="row">
+
+    <!-- CASH SECTION -->
+
+    <div class="col-md-6">
+
+    <h3 class="mb-3">
+        Cash List
+    </h3>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>#</th>
+            <th>Amount</th>
+            <th>Source</th>
+            <th>Description</th>
+            <th>Time</th>
+        </tr>
+
+        {% for cash in cash_data %}
+
+        <tr>
+
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ cash.amount }}</td>
+
+            <td>{{ cash.source }}</td>
+
+            <td>{{ cash.description }}</td>
+
+            <td>
+                {{ cash.datetime|date:"d M Y h:i A" }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+    <!-- EXPENSE SECTION -->
+
+    <div class="col-md-6">
+
+    <h3 class="mb-3">
+        Expense List
+    </h3>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th>$</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Time</th>
+        </tr>
+
+        {% for expense in expense_data %}
+
+        <tr>
+
+            <td>{{ forloop.counter}}</td>
+
+            <td>{{ expense.amount }}</td>
+
+            <td>{{ expense.description }}</td>
+
+            <td>
+                {{ expense.datetime|date:"d M Y h:i A" }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock content %}
